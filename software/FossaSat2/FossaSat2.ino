@@ -135,6 +135,7 @@ void setup() {
     // integration, reset system info
     PersistentStorage_Reset_System_Info();
     PersistentStorage_Reset_ADCS_Params();
+    PersistentStorage_Reset_Stats();
 
     // print data for integration purposes (independently of FOSSASAT_DEBUG macro!)
     uint32_t start = millis();
@@ -251,8 +252,14 @@ void setup() {
     }
 
     // increment deployment counter
+    FOSSASAT_DEBUG_PORT.println(F("================================"));
+    FOSSASAT_DEBUG_PORT.println(F("===  Integration loop done   ==="));
+    FOSSASAT_DEBUG_PORT.println(F("=== \"We'll fly what we have\" ==="));
+    FOSSASAT_DEBUG_PORT.println(F("================================"));
     attemptNumber++;
     PersistentStorage_SystemInfo_Set(FLASH_DEPLOYMENT_COUNTER, attemptNumber);
+    PersistentStorage_Set_Buffer(FLASH_SYSTEM_INFO, systemInfoBuffer, FLASH_EXT_PAGE_SIZE);
+    PowerControl_Wait(DEPLOYMENT_SLEEP_LENGTH, LOW_POWER_SLEEP);
 
   } else if(attemptNumber <= 3) {
     // mid-flight reset, deploy
@@ -351,8 +358,8 @@ void loop() {
   #ifdef ENABLE_TRANSMISSION_CONTROL
     } else {
       // set delay between beeps according to battery voltage
-      uint32_t delayLen = battVoltage * 1000.0 - MORSE_BATTERY_MIN;
-      if(battVoltage * 1000.0 < MORSE_BATTERY_MIN + MORSE_BATTERY_STEP) {
+      uint32_t delayLen = battVoltage - MORSE_BATTERY_MIN;
+      if(battVoltage < MORSE_BATTERY_MIN + MORSE_BATTERY_STEP) {
         delayLen = MORSE_BATTERY_STEP;
       }
 

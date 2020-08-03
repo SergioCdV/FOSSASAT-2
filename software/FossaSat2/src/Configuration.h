@@ -89,7 +89,7 @@
 // GPS
 #define GPS_TX                                          PA0
 #define GPS_RX                                          PA1
-#define GPS_POWER_FET                                   PC3
+#define GPS_POWER_FET                                   PB8
 
 // control FETs
 #define DEPLOYMENT_FET_1                                PB1
@@ -120,10 +120,10 @@
    Voltage Limits
 */
 
-#define DEPLOYMENT_BATTERY_VOLTAGE_LIMIT                3650    // mV
+#define DEPLOYMENT_BATTERY_VOLTAGE_LIMIT                3600    // mV
 #define HEATER_BATTERY_VOLTAGE_LIMIT                    3800    // mV
-#define BATTERY_CW_BEEP_VOLTAGE_LIMIT                   3000          /*!< Battery voltage limit to switch into morse beep (mV). */
-#define LOW_POWER_MODE_VOLTAGE_LIMIT                    3000
+#define BATTERY_CW_BEEP_VOLTAGE_LIMIT                   3700          /*!< Battery voltage limit to switch into morse beep (mV). */
+#define LOW_POWER_MODE_VOLTAGE_LIMIT                    3600
 
 /*
    Temperature Limits
@@ -137,8 +137,8 @@
    Default sleep intervals
 */
 #define DEFAULT_NUMBER_OF_SLEEP_INTERVALS               6       // maximum of 8
-#define DEFAULT_SLEEP_INTERVAL_VOLTAGES                 { 4050, 4000, 3900, 3800, 3700,    0 }    // mV
-#define DEFAULT_SLEEP_INTERVAL_LENGTHS                  {   20,   35,  100,  160,  180,  10 }    // sec
+#define DEFAULT_SLEEP_INTERVAL_VOLTAGES                 { 4050, 3950, 3900, 3800, 3700,    3600 }    // mV
+#define DEFAULT_SLEEP_INTERVAL_LENGTHS                  {   0,   5,  10,  30,  40,  100 }    // sec
 
 /*
    Default TLE
@@ -354,9 +354,9 @@
 #define CALLSIGN_DEFAULT                                "FOSSASAT-2"
 #define SYNC_WORD                                       0x12        /*!< Ensure this sync word is compatable with all devices. */
 #define TCXO_VOLTAGE                                    1.6         /*!< Sets the radio's TCX0 voltage. (V) */
-#define MAX_NUM_OF_BLOCKS                               3           /*!< maximum number of AES128 blocks that will be accepted */
 #define LORA_RECEIVE_WINDOW_LENGTH                      40          /*!< How long to listen out for LoRa transmissions for (s) */
 #define FSK_RECEIVE_WINDOW_LENGTH                       20          /*!< How long to listen out for FSK transmissions for (s) */
+#define MAX_NUM_OF_BLOCKS                               12           /*!< maximum number of AES128 blocks that will be accepted */
 #define RESPONSE_DELAY                                  500         /*!< How long to wait for before responding to a transmission (ms) */
 #define RESPONSE_DELAY_SHORT                            0           /*!< Shorter version of RESPONSE_DELAY to be used for certain frames (e.g. picture downlink) (ms) */
 #define WHITENING_INITIAL                               0x1FF       /*!< Whitening LFSR initial value, to ensure SX127x compatibility */
